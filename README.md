@@ -71,11 +71,22 @@ The repository includes a GitHub Actions workflow (`.github/workflows/nuget.yml`
 - Performs all build steps above
 - Publishes the package to NuGet.org using `NUGET_API_KEY` secret (with `--skip-duplicate`)
 
-### Viewing Workflow Artifacts
+### Viewing and Downloading Workflow Artifacts
 
-1. Navigate to the **Actions** tab in the GitHub repository
-2. Select a completed workflow run
-3. Download the `nuget-package` artifact from the artifacts section
+After a workflow run completes, you can download the built NuGet package:
+
+1. Navigate to the **[Actions](https://github.com/shahvirb/nuget-sandbox/actions)** tab in the GitHub repository
+2. Click on a completed workflow run (e.g., "NuGet Build and Pack")
+3. Scroll down to the **Artifacts** section at the bottom of the page
+4. Click on **nuget-package** to download the `.nupkg` file as a ZIP archive
+5. Extract the ZIP file to access the `.nupkg` file
+
+**Alternative:** The workflow summary will also display a direct link and instructions for downloading the artifact.
+
+**Where is the package built?**
+- During the workflow, the package is built in the `./artifacts/` directory
+- The file is named `HelloWorldLib.<version>.nupkg` (e.g., `HelloWorldLib.1.0.0.nupkg`)
+- This artifact is then uploaded and available for download for 30 days
 
 ### Publishing to NuGet.org (Optional)
 

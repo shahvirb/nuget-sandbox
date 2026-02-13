@@ -44,6 +44,36 @@ jobs:
         name: nuget-package
         path: ./artifacts/*.nupkg
         retention-days: 30
+    
+    - name: Generate job summary
+      run: |
+        echo "## 📦 NuGet Package Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Build Status:** Success" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📥 Download the NuGet Package" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "The NuGet package has been successfully built and uploaded as an artifact." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**To download:**" >> $GITHUB_STEP_SUMMARY
+        echo "1. Go to the [workflow run page](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+        echo "2. Scroll down to the **Artifacts** section at the bottom" >> $GITHUB_STEP_SUMMARY
+        echo "3. Click on **nuget-package** to download the .nupkg file" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📄 Package Details" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Package Name:** HelloWorldLib" >> $GITHUB_STEP_SUMMARY
+        echo "- **Build Configuration:** Release" >> $GITHUB_STEP_SUMMARY
+        echo "- **Output Location (in workflow):** \`./artifacts/\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Retention Period:** 30 days" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        PACKAGE_FILE=$(find ./artifacts -name '*.nupkg' -type f -print -quit)
+        if [ -n "$PACKAGE_FILE" ]; then
+          PACKAGE_NAME=$(basename "$PACKAGE_FILE")
+          PACKAGE_SIZE=$(du -h "$PACKAGE_FILE" | cut -f1)
+          echo "- **Package File:** \`$PACKAGE_NAME\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Package Size:** $PACKAGE_SIZE" >> $GITHUB_STEP_SUMMARY
+        fi
 
   publish:
     runs-on: ubuntu-latest
