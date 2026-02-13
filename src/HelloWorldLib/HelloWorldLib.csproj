@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>HelloWorldLib</PackageId>
+    <Authors>shahvirb</Authors>
+    <Description>A Hello World library.</Description>
+    <RepositoryUrl>https://github.com/shahvirb/nuget-sandbox</RepositoryUrl>
+  </PropertyGroup>
+</Project>
