@@ -67,8 +67,8 @@ jobs:
         echo "- **Output Location (in workflow):** \`./artifacts/\`" >> $GITHUB_STEP_SUMMARY
         echo "- **Retention Period:** 30 days" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        if ls ./artifacts/*.nupkg 1> /dev/null 2>&1; then
-          PACKAGE_FILE=$(find ./artifacts -name '*.nupkg' -print -quit)
+        PACKAGE_FILE=$(find ./artifacts -name '*.nupkg' -type f -print -quit)
+        if [ -n "$PACKAGE_FILE" ]; then
           PACKAGE_NAME=$(basename "$PACKAGE_FILE")
           PACKAGE_SIZE=$(du -h "$PACKAGE_FILE" | cut -f1)
           echo "- **Package File:** \`$PACKAGE_NAME\`" >> $GITHUB_STEP_SUMMARY
